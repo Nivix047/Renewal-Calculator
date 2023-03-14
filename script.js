@@ -31,28 +31,23 @@ function renewalCalc(renewal, expiring) {
       percentageChange.toFixed(2) * 100
     }% increase`;
     premChangeEl.classList.remove("over");
-    premChangeEl.classList.add("under");
   } else if (percentageChange < 0.1 && premChange < 0) {
     messageEl.innerHTML = `Per DL FT$${renewalValue} (was $${expiringValue}) approx ${
       percentageChange.toFixed(2) * 100
     }% decrease`;
     premChangeEl.classList.remove("over");
-    premChangeEl.classList.add("under");
   } else if (percentageChange >= 0.1 && premChange < 100) {
     messageEl.innerHTML = `Per DL FT$${renewalValue} (was $${expiringValue}) approx ${
       percentageChange.toFixed(2) * 100
     }% increase. Within our $100 threshold`;
     premChangeEl.classList.remove("over");
-    premChangeEl.classList.add("under");
   } else if (percentageChange >= 0.1 && premChange >= 100) {
     messageEl.innerHTML = "ren.prem.over.threshold";
-    premChangeEl.classList.remove("under");
     premChangeEl.classList.add("over");
   } else if (premChange < 0) {
     messageEl.innerHTML = `Per DL FT$${renewalValue} (was $${expiringValue}) approx ${
       percentageChange.toFixed(2) * 100
     }% decrease`;
     premChangeEl.classList.remove("over");
-    premChangeEl.classList.add("under");
   }
 }
