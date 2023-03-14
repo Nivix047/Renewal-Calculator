@@ -50,12 +50,16 @@ function renewalCalc(renewal, expiring) {
     }% decrease`;
     premChangeEl.classList.remove("over");
   }
-  // Copy message to clipboard
-  const selection = window.getSelection();
-  const range = document.createRange();
-  range.selectNodeContents(messageEl);
-  selection.removeAllRanges();
-  selection.addRange(range);
-  document.execCommand("copy");
-  selection.removeAllRanges();
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(messageEl.innerText).then(
+      function () {
+        console.log("Copied to clipboard");
+      },
+      function () {
+        console.error("Unable to copy to clipboard");
+      }
+    );
+  } else {
+    console.error("Clipboard API not supported");
+  }
 }
