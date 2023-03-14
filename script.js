@@ -50,4 +50,12 @@ function renewalCalc(renewal, expiring) {
     }% decrease`;
     premChangeEl.classList.remove("over");
   }
+  // Copy message to clipboard
+  const selection = window.getSelection();
+  const range = document.createRange();
+  range.selectNodeContents(messageEl);
+  selection.removeAllRanges();
+  selection.addRange(range);
+  document.execCommand("copy");
+  selection.removeAllRanges();
 }
