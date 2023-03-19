@@ -13,6 +13,7 @@ submitBtn.addEventListener("click", function (event) {
   renewalCalc(renewalValue, expiringValue);
 });
 
+// Calculates premium and percentage change
 function renewalCalc(renewal, expiring) {
   let renewalValue = parseFloat(renewal);
   let expiringValue = parseFloat(expiring);
@@ -26,7 +27,10 @@ function renewalCalc(renewal, expiring) {
   percentageChangeEl.innerHTML = `${percentageChange.toFixed(2) * 100}%`;
 
   // Message display
-  if (percentageChange < 0.1 && premChange > 0) {
+  if (percentageChange < 0.01 && premChange > 0) {
+    messageEl.innerHTML = `Per DL FT$${renewalValue} (was $${expiringValue}) <1% increase`;
+    premChangeEl.classList.remove("over");
+  } else if (percentageChange < 0.1 && premChange > 0) {
     messageEl.innerHTML = `Per DL FT$${renewalValue} (was $${expiringValue}) approx ${
       percentageChange.toFixed(2) * 100
     }% increase`;
@@ -50,6 +54,7 @@ function renewalCalc(renewal, expiring) {
     }% decrease`;
     premChangeEl.classList.remove("over");
   }
+
   if (navigator.clipboard) {
     navigator.clipboard.writeText(messageEl.innerText).then(
       function () {
