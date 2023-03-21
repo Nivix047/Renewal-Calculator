@@ -43,34 +43,36 @@ function renewalCalc(renewal, expiring) {
   percentageChangeEl.innerHTML = `${percentageChange.toFixed(2) * 100}%`;
 
   // Message display
-  if (percentageChange < 0.01 && premChange > 0) {
-    messageEl.innerHTML = `Per DL FT$${renewalValue} (was $${expiringValue}) <1% increase`;
-    premChangeEl.classList.remove("over");
-  } else if (percentageChange < 0.1 && premChange > 0) {
-    messageEl.innerHTML = `Per DL FT$${renewalValue} (was $${expiringValue}) approx ${
-      percentageChange.toFixed(2) * 100
-    }% increase`;
-    premChangeEl.classList.remove("over");
-  } else if (percentageChange < 0.1 && premChange < 0) {
-    messageEl.innerHTML = `Per DL FT$${renewalValue} (was $${expiringValue}) approx ${
-      percentageChange.toFixed(2) * 100
-    }% decrease`;
-    premChangeEl.classList.remove("over");
-  } else if (percentageChange >= 0.1 && premChange < 100) {
-    messageEl.innerHTML = `Per DL FT$${renewalValue} (was $${expiringValue}) approx ${
-      percentageChange.toFixed(2) * 100
-    }% increase. Within our $100 threshold`;
-    premChangeEl.classList.remove("over");
-  } else if (percentageChange >= 0.1 && premChange >= 100) {
-    messageEl.innerHTML = "ren.prem.over.threshold";
-    premChangeEl.classList.add("over");
-  } else if (premChange < 0) {
-    messageEl.innerHTML = `Per DL FT$${renewalValue} (was $${expiringValue}) approx ${
-      percentageChange.toFixed(2) * 100
-    }% decrease`;
-    premChangeEl.classList.remove("over");
-  } else if (premChange === 0) {
-    messageEl.innerHTML = `Per DL FT$${renewalValue} (was same)`;
+  if (Math.abs(percentageChange) < 0.01) {
+    if (premChange > 0) {
+      messageEl.innerHTML = `Per DL FT$${renewalValue} (was $${expiringValue}) <1% increase`;
+      premChangeEl.classList.remove("over");
+    } else if (premChange < 0) {
+      messageEl.innerHTML = `Per DL FT$${renewalValue} (was $${expiringValue}) <1% decrease`;
+      premChangeEl.classList.remove("over");
+    } else if (premChange === 0) {
+      messageEl.innerHTML = `Per DL FT$${renewalValue} (was same)`;
+    }
+  } else if (percentageChange < 0.1) {
+    let percentChange = (percentageChange * 100).toFixed(0);
+    if (premChange > 0) {
+      messageEl.innerHTML = `Per DL FT$${renewalValue} (was $${expiringValue}) approx ${percentChange}% increase`;
+      premChangeEl.classList.remove("over");
+    } else if (premChange < 0) {
+      messageEl.innerHTML = `Per DL FT$${renewalValue} (was $${expiringValue}) approx ${percentChange}% decrease`;
+      premChangeEl.classList.remove("over");
+    } else if (premChange === 0) {
+      messageEl.innerHTML = `Per DL FT$${renewalValue} (was same)`;
+    }
+  } else {
+    if (premChange < 100) {
+      let percentChange = (percentageChange * 100).toFixed(0);
+      messageEl.innerHTML = `Per DL FT$${renewalValue} (was $${expiringValue}) approx ${percentChange}% increase. Within our $100 threshold`;
+      premChangeEl.classList.remove("over");
+    } else if (premChange >= 100) {
+      messageEl.innerHTML = "ren.prem.over.threshold";
+      premChangeEl.classList.add("over");
+    }
   }
 
   if (navigator.clipboard) {
