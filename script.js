@@ -53,6 +53,8 @@ function renewalCalc(renewal, expiring) {
       percentageChange.toFixed(2) * 100
     }% decrease`;
     premChangeEl.classList.remove("over");
+  } else if (premChange === 0) {
+    messageEl.innerHTML = `Per DL FT$${renewalValue} (was same)`;
   }
 
   if (navigator.clipboard) {
