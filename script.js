@@ -10,7 +10,23 @@ submitBtn.addEventListener("click", function (event) {
   event.preventDefault();
   let renewalValue = renewalEl.value.toString();
   let expiringValue = expiringEl.value.toString();
-  renewalCalc(renewalValue, expiringValue);
+
+  // If renewalValue and expiringValue are not numbers it alerts the user
+  if (isNaN(renewalValue) || isNaN(expiringValue)) {
+    alert("Please enter a number");
+    renewalEl.value = "";
+    expiringEl.value = "";
+    premChangeEl.innerHTML = "";
+    percentageChangeEl.innerHTML = "";
+  } else if (renewalValue === "" || expiringValue === "") {
+    alert("Please enter a number");
+    renewalEl.value = "";
+    expiringEl.value = "";
+    premChangeEl.innerHTML = "";
+    percentageChangeEl.innerHTML = "";
+  } else {
+    renewalCalc(renewalValue, expiringValue);
+  }
 });
 
 // Calculates premium and percentage change
