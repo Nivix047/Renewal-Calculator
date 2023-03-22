@@ -59,7 +59,9 @@ function renewalCalc(renewal, expiring) {
       messageEl.innerHTML = `Per DL FT$${renewalValue} (was $${expiringValue}) approx ${percentChange}% increase`;
       premChangeEl.classList.remove("over");
     } else if (premChange < 0) {
-      messageEl.innerHTML = `Per DL FT$${renewalValue} (was $${expiringValue}) approx ${percentChange}% decrease`;
+      messageEl.innerHTML = `Per DL FT$${renewalValue} (was $${expiringValue}) approx ${Math.abs(
+        percentChange
+      )}% decrease`;
       premChangeEl.classList.remove("over");
     } else if (premChange === 0) {
       messageEl.innerHTML = `Per DL FT$${renewalValue} (was same)`;
